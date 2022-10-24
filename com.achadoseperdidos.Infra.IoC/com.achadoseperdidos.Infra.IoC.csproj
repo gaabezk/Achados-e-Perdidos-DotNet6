@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\com.achadoseperdidos.Application\com.achadoseperdidos.Application.csproj" />
+      <ProjectReference Include="..\com.achadoseperdidos.Domain\com.achadoseperdidos.Domain.csproj" />
+      <ProjectReference Include="..\com.achadoseperdidos.Infra.Data\com.achadoseperdidos.Infra.Data.csproj" />
+    </ItemGroup>
+
+</Project>

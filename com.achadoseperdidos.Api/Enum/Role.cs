@@ -2,6 +2,6 @@
 
 public enum Role : byte
 {
-    ROLE_ADMIN = 0,
-    ROLE_USER = 1
+    ADMIN = 0,
+    USER = 1
 }

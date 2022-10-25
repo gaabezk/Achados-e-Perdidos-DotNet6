@@ -9,4 +9,5 @@ public interface IUserService
     Task<ResultService<UserDto>> GetById(int id);
     Task<ResultService> UpdateAsync(UserDto pessoaDto);
     Task<ResultService> RemoveAsync(int id);
+    Task<ResultService> EditRoleAsync(int id, string role);
 }

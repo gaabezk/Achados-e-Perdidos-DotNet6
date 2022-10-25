@@ -37,7 +37,7 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<ActionResult> GettAllById(int id)
+    public async Task<ActionResult> GetAllById(int id)
     {
         var result = await _userService.GetById(id);
         if (result.IsSuccess)
@@ -50,6 +50,17 @@ public class UserController : ControllerBase
     public async Task<ActionResult> UpdateAsync([FromBody] UserDto userDto)
     {
         var result = await _userService.UpdateAsync(userDto);
+        if (result.IsSuccess)
+            return Ok(result);
+
+        return BadRequest(result);
+    }
+    
+    [HttpPut]
+    [Route("/admin/api/role")]
+    public async Task<ActionResult> UpdateRoleAsync([FromQuery] int id,string role)
+    {
+        var result = await _userService.EditRoleAsync(id,role);
         if (result.IsSuccess)
             return Ok(result);
 

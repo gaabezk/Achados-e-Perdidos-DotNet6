@@ -9,19 +9,19 @@ public sealed class User
     public string Email { get; private set; }
     public string Phone { get; private set; }
     public string Password { get; private set; }
-    public string Role { get; private set; }
+    public string Role { get; set; }
     public string? CodeToResetPassword { get; private set; }
     
 
     public User(string fullName, string email, string phone, string password)
     {
-        Role = Enum.Role.ROLE_USER.ToString();
+        Role = Enum.Role.USER.ToString();
         Validation(fullName,  email,  phone,  password);
     }
 
     public User(int id, string fullName, string email, string phone, string password, string role)
     { 
-        Role = string.IsNullOrEmpty(role) ? Enum.Role.ROLE_USER.ToString() : role ;
+        Role = string.IsNullOrEmpty(role) ? Enum.Role.USER.ToString() : role ;
         DomainValidationException.When(id < 0,"Id nao pode ser menor ou igual a 0 (zero)!");
         Id = id;
         Validation(fullName,  email,  phone,  password);

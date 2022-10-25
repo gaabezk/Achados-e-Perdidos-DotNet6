@@ -14,7 +14,7 @@ public class UserController : ControllerBase
     {
         _userService = userService;
     }
-
+    
     [HttpPost]
     public async Task<ActionResult> PostAsync([FromBody] UserDto userDto)
     {
@@ -24,4 +24,47 @@ public class UserController : ControllerBase
         
         return BadRequest(result);
     }
+
+    [HttpGet]
+    public async Task<ActionResult> GetAllAsync()
+    {
+        var result = await _userService.GetAllAsync();
+        if (result.IsSuccess)
+            return Ok(result);
+
+        return BadRequest(result);
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult> GettAllById(int id)
+    {
+        var result = await _userService.GetById(id);
+        if (result.IsSuccess)
+            return Ok(result);
+
+        return BadRequest(result);
+    }
+    
+    [HttpPut]
+    public async Task<ActionResult> UpdateAsync([FromBody] UserDto userDto)
+    {
+        var result = await _userService.UpdateAsync(userDto);
+        if (result.IsSuccess)
+            return Ok(result);
+
+        return BadRequest(result);
+    }
+    
+    [HttpDelete]
+    [Route("{id}")]
+    public async Task<ActionResult> RemoveAsync(int id)
+    {
+        var result = await _userService.RemoveAsync(id);
+        if (result.IsSuccess)
+            return Ok(result);
+
+        return BadRequest(result);
+    }
+    
 }

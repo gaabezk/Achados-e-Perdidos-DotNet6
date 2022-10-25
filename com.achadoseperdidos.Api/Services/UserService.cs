@@ -33,21 +33,46 @@ public class UserService : IUserService
 
     public async Task<ResultService<ICollection<UserDto>>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var data = await _userRepository.GetAllAsync();
+        return ResultService.Ok(_mapper.Map<ICollection<UserDto>>(data));
     }
 
     public async Task<ResultService<UserDto>> GetById(int id)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.GetByIdAsync(id);
+        if(user == null)
+            return ResultService.Fail<UserDto>($"Usuario do id {id} nao encontrado!");
+
+        return ResultService.Ok<UserDto>(_mapper.Map<UserDto>(user));
     }
 
-    public async Task<ResultService> UpdateAsync(UserDto pessoaDto)
+    public async Task<ResultService> UpdateAsync(UserDto userDto)
     {
-        throw new NotImplementedException();
+        if(userDto == null)
+            return ResultService.Fail("Objeto deve ser informado!");
+
+        var validation = new UserDTOValidator().Validate(userDto);
+        if(!validation.IsValid)
+            return ResultService.RequestError("Problemas com a validade dos campos",validation);
+
+        var user = await _userRepository.GetByIdAsync(userDto.Id);
+        if(user == null)
+            return ResultService.Fail($"Usuario do id {userDto.Id} não foi encontrado!");
+
+        user = _mapper.Map(userDto, user); // Edicão
+        await _userRepository.EditAsync(user); 
+        return ResultService.Ok($"Usuario do id {user.Id} foi editado com sucesso!");
+
     }
 
     public async Task<ResultService> RemoveAsync(int id)
     {
-        throw new NotImplementedException();
+        var pessoa = await _userRepository.GetByIdAsync(id);
+        if (pessoa == null)
+            return ResultService.Fail<UserDto>("Usuario nao encontrado");
+
+        await _userRepository.DeleteAsync(pessoa);
+        return ResultService.Ok($"Usuaro do id {id} foi deletado com sucesso!");
+
     }
 }

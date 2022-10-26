@@ -19,9 +19,8 @@ public sealed class User
         Validation(fullName,  email,  phone,  password);
     }
 
-    public User(int id, string fullName, string email, string phone, string password, string role)
-    { 
-        Role = string.IsNullOrEmpty(role) ? Enum.Role.USER.ToString() : role ;
+    public User(int id, string fullName, string email, string phone, string password)
+    {
         DomainValidationException.When(id < 0,"Id nao pode ser menor ou igual a 0 (zero)!");
         Id = id;
         Validation(fullName,  email,  phone,  password);

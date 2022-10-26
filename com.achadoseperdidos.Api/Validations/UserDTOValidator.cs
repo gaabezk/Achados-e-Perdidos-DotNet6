@@ -9,23 +9,19 @@ public class UserDTOValidator : AbstractValidator<UserDto>
     {
         RuleFor(x => x.FullName)
             .NotEmpty()
-            .NotNull()
-            .WithMessage("Nome completo deve ser informado!");
+            .WithMessage("Nome completooooooo deve ser informado!");
 
         RuleFor(x => x.Email)
             .NotEmpty()
-            .NotNull()
             .WithMessage("Email deve ser informado!");
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .NotNull()
             .WithMessage("Senha deve ser informado!");
 
         RuleFor(x => x.Phone)
             .NotEmpty()
-            .NotNull()
             .WithMessage("Telefone deve ser informado!");
-        
+
     }
 }

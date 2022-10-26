@@ -2,7 +2,7 @@
 
 public class DomainValidationException : Exception
 {
-    public DomainValidationException(string error): base(error)
+    public DomainValidationException(string error) : base(error)
     {
     }
 

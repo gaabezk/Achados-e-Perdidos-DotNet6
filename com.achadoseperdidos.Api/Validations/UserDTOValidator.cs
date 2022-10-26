@@ -22,6 +22,5 @@ public class UserDTOValidator : AbstractValidator<UserDto>
         RuleFor(x => x.Phone)
             .NotEmpty()
             .WithMessage("Telefone deve ser informado!");
-
     }
 }

@@ -92,6 +92,7 @@ public class UserService : IUserService
             default:
                 return ResultService.Fail("Role inválida ou nula");
         }
+
         await _userRepository.EditAsync(user);
         return ResultService.Ok($"Usuario do id {id} foi editado com sucesso!");
     }

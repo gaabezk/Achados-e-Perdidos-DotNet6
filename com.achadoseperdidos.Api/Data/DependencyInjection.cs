@@ -3,7 +3,6 @@ using com.achadoseperdidos.Api.Repositories;
 using com.achadoseperdidos.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace com.achadoseperdidos.Api.Data;
 
 public static class DependencyInjection

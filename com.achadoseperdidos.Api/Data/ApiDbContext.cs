@@ -5,14 +5,11 @@ namespace com.achadoseperdidos.Api.Data;
 
 public class ApiDbContext : DbContext
 {
-    public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options){}
-
-    public DbSet<User> User { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
     {
-        base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApiDbContext).Assembly);
     }
+    public DbSet<User> User { get; set; }
+    public DbSet<Item> Item { get; set; }
+    public DbSet<Post> Post { get; set; }
     
 }

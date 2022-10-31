@@ -1,5 +1,6 @@
 ﻿using com.achadoseperdidos.Api.Data;
 using com.achadoseperdidos.Api.Entities;
+using com.achadoseperdidos.Api.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace com.achadoseperdidos.Api.Repositories;

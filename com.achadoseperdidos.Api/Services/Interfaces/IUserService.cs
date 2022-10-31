@@ -1,6 +1,6 @@
 ﻿using com.achadoseperdidos.Api.DTO;
 
-namespace com.achadoseperdidos.Api.Services;
+namespace com.achadoseperdidos.Api.Services.Interfaces;
 
 public interface IUserService
 {

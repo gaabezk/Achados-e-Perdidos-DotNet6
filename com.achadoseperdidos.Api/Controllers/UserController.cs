@@ -1,5 +1,5 @@
 ﻿using com.achadoseperdidos.Api.DTO;
-using com.achadoseperdidos.Api.Services;
+using com.achadoseperdidos.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace com.achadoseperdidos.Api.Controllers;

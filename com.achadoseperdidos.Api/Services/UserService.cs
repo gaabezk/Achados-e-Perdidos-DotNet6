@@ -2,7 +2,8 @@
 using com.achadoseperdidos.Api.DTO;
 using com.achadoseperdidos.Api.Entities;
 using com.achadoseperdidos.Api.Enum;
-using com.achadoseperdidos.Api.Repositories;
+using com.achadoseperdidos.Api.Repositories.Interfaces;
+using com.achadoseperdidos.Api.Services.Interfaces;
 using com.achadoseperdidos.Api.Validations;
 
 namespace com.achadoseperdidos.Api.Services;

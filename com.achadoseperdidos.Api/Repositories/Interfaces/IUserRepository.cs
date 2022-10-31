@@ -1,6 +1,6 @@
 ﻿using com.achadoseperdidos.Api.Entities;
 
-namespace com.achadoseperdidos.Api.Repositories;
+namespace com.achadoseperdidos.Api.Repositories.Interfaces;
 
 public interface IUserRepository
 {

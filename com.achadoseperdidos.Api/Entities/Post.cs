@@ -11,53 +11,57 @@ public class Post
     {
     }
 
-    public Post(string title, Item item, DateTime creationDate, string postStatus)
-    {
-        CreationDate = DateTime.Now;
-        LastUpdateDate = DateTime.Now;
-        Validation(title, item, creationDate, postStatus);
-        PostStatus = Enum.PostStatus.WAITING_APPROVAL.ToString();
-    }
-
-    public Post(int id, string title, Item item, DateTime creationDate, DateTime lastUpdateDate, string postStatus)
+    public Post(int id, string title, Item item)
     {
         DomainValidationException.When(id < 0, "Id nao pode ser menor ou igual a 0 (zero)!");
         Id = id;
-        LastUpdateDate = DateTime.Now;
-        Validation(title, item, creationDate, postStatus);
+        Validation(title, item);
     }
 
-    [Key]
-    public int Id { get; private set; }
-    
+    public Post(string title, Item item)
+    {
+        Validation(title, item);
+    }
+
+    [Key] public int Id { get; private set; }
+
     [StringLength(100)]
-    [Required(ErrorMessage="Titulo é obrigatório",AllowEmptyStrings=false)]
+    [Required(ErrorMessage = "Titulo é obrigatório", AllowEmptyStrings = false)]
     [Column("titulo")]
     public string Title { get; private set; }
+
+    public int? ItemId { get; private set; }
     public Item Item { get; private set; }
-    
+
     [StringLength(100)]
-    [Required(ErrorMessage="Data criacao é obrigatório",AllowEmptyStrings=false)]
+    [Required(ErrorMessage = "Data criacao é obrigatório", AllowEmptyStrings = false)]
     [Column("data_criacao")]
-    public DateTime? CreationDate { get; }
-    
-    [Column("ultimo_update")]
-    public DateTime? LastUpdateDate { get; }
-    
+    public DateOnly? CreationDate { get; private set; }
+
+    [Column("ultimo_update")] 
+    public DateOnly? LastUpdateDate { get; private set; }
+
     [StringLength(30)]
-    [Required(ErrorMessage="Status da postagem é obrigatório",AllowEmptyStrings=false)]
+    [Required(ErrorMessage = "Status da postagem é obrigatório", AllowEmptyStrings = false)]
     [Column("status_postagem")]
     public string? PostStatus { get; private set; }
 
-    private void Validation(string title, Item item, DateTime creationDate, string postStatus)
+    private void Validation(string title, Item item)
     {
         DomainValidationException.When(string.IsNullOrEmpty(title), "Nome deve ser informado!");
 
-        Title = title;
         Item = item;
-        PostStatus = postStatus;
+        Title = title;
+        CreationDate = DateOnly.FromDateTime(DateTime.Now);
+        LastUpdateDate = DateOnly.FromDateTime(DateTime.Now);
+        PostStatus = Enum.PostStatus.WAITING_APPROVAL.ToString();
     }
 
+    public void setItem(Item item)
+    {
+        Item = item;
+    }
+    
     public override string ToString()
     {
         return

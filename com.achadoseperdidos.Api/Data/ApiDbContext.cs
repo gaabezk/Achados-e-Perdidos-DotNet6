@@ -9,7 +9,6 @@ public class ApiDbContext : DbContext
     {
     }
     public DbSet<User> User { get; set; }
-    public DbSet<Item> Item { get; set; }
     public DbSet<Post> Post { get; set; }
     
 }

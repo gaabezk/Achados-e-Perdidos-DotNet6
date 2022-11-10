@@ -7,9 +7,15 @@ namespace com.achadoseperdidos.Api.Entities;
 [Table("tb_usuario")]
 public sealed class User
 {
+    public User(string fullName, string email, string phone, string password)
+    {
+        Validation(fullName, email, phone, password);
+    }
     public User(int id, string fullName, string email, string phone, string password)
     {
-        Validation(id, fullName, email, phone, password);
+        DomainValidationException.When(id < 0, "Id nao pode ser menor que 0 (zero)!");
+        Id = id;
+        Validation(fullName, email, phone, password);
     }
 
     [Key]
@@ -38,25 +44,29 @@ public sealed class User
     [StringLength(20)]
     [Required(ErrorMessage="Role é obrigatório",AllowEmptyStrings=false)]
     [Column("role")]
-    public string Role { get; set; }
+    public string Role { get; private set; }
     
     [StringLength(100)]
     [Column("codigo")]
     public string? CodeToResetPassword { get; private set; }
 
-    private void Validation(int id, string fullName, string email, string phone, string password)
+    private void Validation(string fullName, string email, string phone, string password)
     {
-        DomainValidationException.When(id < 0, "Id nao pode ser menor que 0 (zero)!");
         DomainValidationException.When(string.IsNullOrEmpty(fullName), "Nome completo deve ser informado!");
-        DomainValidationException.When(string.IsNullOrEmpty(email), "E-mail deve ser informado!");
+        DomainValidationException.When(string.IsNullOrEmpty(email), "E-mail deve ser informadooooooooooooo!");
         DomainValidationException.When(string.IsNullOrEmpty(phone), "Telefone deve ser informado!");
         DomainValidationException.When(string.IsNullOrEmpty(password), "Senha deve ser informada!");
         
-        Id = id;
         FullName = fullName;
         Email = email;
         Phone = phone;
         Password = password;
         Role = Enum.Role.USER.ToString();
     }
+    
+    public void setRole(string role)
+    {
+        Role = role;
+    }
+    
 }

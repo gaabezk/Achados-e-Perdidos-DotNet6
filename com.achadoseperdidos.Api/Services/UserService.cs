@@ -27,7 +27,7 @@ public class UserService : IUserService
         var result = new UserDTOValidator().Validate(userDto);
         if (!result.IsValid)
             return ResultService.RequestError<UserDto>("Problemas de validade", result);
-
+        
         var user = _mapper.Map<User>(userDto); // criação
         var data = await _userRepository.CreateAsync(user);
         return ResultService.Ok(_mapper.Map<UserDto>(data));
@@ -52,14 +52,22 @@ public class UserService : IUserService
     {
         if (userDto == null)
             return ResultService.Fail("Objeto deve ser informado!");
-
-        var validation = new UserDTOValidator().Validate(userDto);
-        if (!validation.IsValid)
-            return ResultService.RequestError("Problemas com a validade dos campos", validation);
-
+        
         var user = await _userRepository.GetByIdAsync(userDto.Id);
         if (user == null)
             return ResultService.Fail($"Usuario do id {userDto.Id} não foi encontrado!");
+
+        if (string.IsNullOrEmpty(userDto.FullName)) 
+            userDto.FullName = user.FullName;
+        
+        if (string.IsNullOrEmpty(userDto.Email)) 
+            userDto.Email = user.Email;
+        
+        if (string.IsNullOrEmpty(userDto.Phone)) 
+            userDto.Phone = user.Phone;
+        
+        if (string.IsNullOrEmpty(userDto.Password)) 
+            userDto.Password = user.Password;
 
         user = _mapper.Map(userDto, user); // Edicão
         await _userRepository.EditAsync(user);
@@ -85,13 +93,13 @@ public class UserService : IUserService
         switch (role)
         {
             case "admin":
-                user.Role = Role.ADMIN.ToString();
+                user.setRole(Role.ADMIN.ToString());
                 break;
             case "user":
-                user.Role = Role.USER.ToString();
+                user.setRole(Role.USER.ToString());
                 break;
             default:
-                return ResultService.Fail("Role inválida ou nula");
+                return ResultService.Fail(" Role inválida ou nula. Passe: 'admin' ou 'user' ");
         }
 
         await _userRepository.EditAsync(user);

@@ -13,17 +13,13 @@ public class PostDto
     public string? Color { get; set; }
     public string? FoundLocation { get; set; }
     public string? City { get; set; }
-    
-    [JsonIgnore]
-    public DateOnly? CreationDate { get; set; }
-    
-    [JsonIgnore]
-    public DateOnly? LastUpdateDate { get; set; }
-    
-    [JsonIgnore]
-    public string? PostStatus { get; set; }
-    
+
+    [JsonIgnore] public DateOnly? CreationDate { get; set; }
+
+    [JsonIgnore] public DateOnly? LastUpdateDate { get; set; }
+
+    [JsonIgnore] public string? PostStatus { get; set; }
+
     /// <example>dd/MM/aaaa</example>
     public DateOnly? ItemDateFound { get; set; }
-    
 }

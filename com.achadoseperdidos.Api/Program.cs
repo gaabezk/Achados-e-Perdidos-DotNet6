@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = "string",
         Nullable = true
     });
-    
+
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
@@ -27,7 +27,7 @@ builder.Services.AddSwaggerGen(c =>
         {
             Name = "Gabriel Fernandes",
             Email = "gaabezk@gmail.com",
-            Url = new Uri("https://github.com/gaabezk"),
+            Url = new Uri("https://github.com/gaabezk")
         }
     });
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

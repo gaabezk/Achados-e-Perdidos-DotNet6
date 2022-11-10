@@ -15,19 +15,17 @@ public class DateOnlyJsonConverter : JsonConverter<DateOnly>
     {
         if (reader.GetString().Equals(""))
             return DateOnly.Parse("01/01/0001");
-        
+
         if (DateOnly.TryParseExact(
                 reader.GetString(),
                 Format,
                 CultureInfo.InvariantCulture,
-                DateTimeStyles.None, 
-                out DateOnly date))
-        {
+                DateTimeStyles.None,
+                out var date))
             return date;
-        }
         throw new JsonException("A data deve estar no seguinte formato: dd/MM/yyyy Ex: 27/09/2022");
     }
-    
+
     public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(value.ToString(Format, CultureInfo.InvariantCulture));

@@ -11,6 +11,7 @@ public sealed class User
     {
         Validation(fullName, email, phone, password);
     }
+
     public User(int id, string fullName, string email, string phone, string password)
     {
         DomainValidationException.When(id < 0, "Id nao pode ser menor que 0 (zero)!");
@@ -18,37 +19,34 @@ public sealed class User
         Validation(fullName, email, phone, password);
     }
 
-    [Key]
-    public int Id { get; private set; }
-    
+    [Key] public int Id { get; private set; }
+
     [StringLength(80)]
-    [Required(ErrorMessage="Nome completo é obrigatório",AllowEmptyStrings=false)]
+    [Required(ErrorMessage = "Nome completo é obrigatório", AllowEmptyStrings = false)]
     [Column("nome_completo")]
     public string FullName { get; private set; }
-    
+
     [StringLength(100)]
-    [Required(ErrorMessage="E-mail é obrigatório",AllowEmptyStrings=false)]
+    [Required(ErrorMessage = "E-mail é obrigatório", AllowEmptyStrings = false)]
     [Column("email")]
     public string Email { get; private set; }
-    
+
     [StringLength(14)]
-    [Required(ErrorMessage="Telefone é obrigatório",AllowEmptyStrings=false)]
+    [Required(ErrorMessage = "Telefone é obrigatório", AllowEmptyStrings = false)]
     [Column("telefone")]
     public string Phone { get; private set; }
-    
+
     [StringLength(100)]
-    [Required(ErrorMessage="Senha é obrigatório",AllowEmptyStrings=false)]
+    [Required(ErrorMessage = "Senha é obrigatório", AllowEmptyStrings = false)]
     [Column("senha")]
     public string Password { get; private set; }
-    
+
     [StringLength(20)]
-    [Required(ErrorMessage="Role é obrigatório",AllowEmptyStrings=false)]
+    [Required(ErrorMessage = "Role é obrigatório", AllowEmptyStrings = false)]
     [Column("role")]
     public string Role { get; private set; }
-    
-    [StringLength(100)]
-    [Column("codigo")]
-    public string? CodeToResetPassword { get; private set; }
+
+    [StringLength(100)] [Column("codigo")] public string? CodeToResetPassword { get; private set; }
 
     private void Validation(string fullName, string email, string phone, string password)
     {
@@ -56,17 +54,16 @@ public sealed class User
         DomainValidationException.When(string.IsNullOrEmpty(email), "E-mail deve ser informadooooooooooooo!");
         DomainValidationException.When(string.IsNullOrEmpty(phone), "Telefone deve ser informado!");
         DomainValidationException.When(string.IsNullOrEmpty(password), "Senha deve ser informada!");
-        
+
         FullName = fullName;
         Email = email;
         Phone = phone;
         Password = password;
         Role = Enum.Role.USER.ToString();
     }
-    
+
     public void setRole(string role)
     {
         Role = role;
     }
-    
 }

@@ -14,7 +14,7 @@ public class PostController : ControllerBase
     {
         _postService = postService;
     }
-    
+
     [HttpPost]
     public async Task<ActionResult> PostAsync([FromBody] PostDto postDto)
     {
@@ -35,7 +35,7 @@ public class PostController : ControllerBase
 
         return BadRequest(result);
     }
-    
+
     [HttpGet]
     public async Task<ActionResult> GetAllAsync()
     {
@@ -45,7 +45,7 @@ public class PostController : ControllerBase
 
         return BadRequest(result);
     }
-    
+
     [HttpPut]
     public async Task<ActionResult> UpdateAsync([FromBody] PostDto postDto)
     {
@@ -55,7 +55,7 @@ public class PostController : ControllerBase
 
         return BadRequest(result);
     }
-    
+
     [HttpPut]
     [Route("/admin/api/status")]
     public async Task<ActionResult> UpdateRoleAsync([FromQuery] int id, string status)

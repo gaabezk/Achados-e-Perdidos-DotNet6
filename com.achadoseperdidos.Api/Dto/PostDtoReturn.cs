@@ -1,9 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-using com.achadoseperdidos.Api.Validations;
-using Microsoft.AspNetCore.Mvc;
-
-namespace com.achadoseperdidos.Api.DTO;
+﻿namespace com.achadoseperdidos.Api.DTO;
 
 public class PostDtoReturn
 {
@@ -20,5 +15,4 @@ public class PostDtoReturn
     public DateOnly? LastUpdateDate { get; set; }
     public string? PostStatus { get; set; }
     public DateOnly? ItemDateFound { get; set; }
-    
 }

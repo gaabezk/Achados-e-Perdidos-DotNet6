@@ -23,7 +23,7 @@ public class PostService : IPostService
     {
         if (postDto == null)
             return ResultService.Fail<PostDtoReturn>("Objeto deve ser informado");
-        
+
         var result = new PostDTOValidator().Validate(postDto);
         if (!result.IsValid)
             return ResultService.RequestError<PostDtoReturn>("Problemas de validade", result);
@@ -34,7 +34,7 @@ public class PostService : IPostService
         postDto.PostStatus = PostStatus.WAITING_APPROVAL.ToString();
         postDto.LastUpdateDate = DateOnly.FromDateTime(DateTime.Now);
         postDto.CreationDate = DateOnly.FromDateTime(DateTime.Now);
-        
+
         var post = _mapper.Map<Post>(postDto); // criação
         var data = await _postRepository.CreateAsync(post);
         return ResultService.Ok(_mapper.Map<PostDtoReturn>(data));
@@ -51,7 +51,7 @@ public class PostService : IPostService
         var post = await _postRepository.GetByIdAsync(id);
         if (post == null)
             return ResultService.Fail<PostDtoReturn>($"Post do id {id} nao encontrado!");
-        
+
         return ResultService.Ok(_mapper.Map<PostDtoReturn>(post));
     }
 
@@ -59,46 +59,45 @@ public class PostService : IPostService
     {
         if (postDto == null)
             return ResultService.Fail("Objeto deve ser informado!");
-        
+
         var post = await _postRepository.GetByIdAsync(postDto.Id);
         if (post == null)
             return ResultService.Fail($"Post do id {postDto.Id} não foi encontrado!");
 
-        if (string.IsNullOrEmpty(postDto.ItemName)) 
+        if (string.IsNullOrEmpty(postDto.ItemName))
             postDto.ItemName = post.ItemName;
 
         if (string.IsNullOrEmpty(postDto.Description))
             postDto.Description = post.Description;
-        
+
         if (string.IsNullOrEmpty(postDto.ImageUrl1))
             postDto.ImageUrl1 = post.ImageUrl1;
-        
+
         if (string.IsNullOrEmpty(postDto.ImageUrl2))
             postDto.ImageUrl2 = post.ImageUrl2;
-        
+
         if (string.IsNullOrEmpty(postDto.ImageUrl3))
             postDto.ImageUrl3 = post.ImageUrl3;
-        
+
         if (string.IsNullOrEmpty(postDto.Color))
             postDto.Color = post.Color;
-        
+
         if (string.IsNullOrEmpty(postDto.City))
             postDto.City = post.City;
-        
+
         if (string.IsNullOrEmpty(postDto.FoundLocation))
             postDto.FoundLocation = post.FoundLocation;
-        
+
         if (string.IsNullOrEmpty(postDto.ItemDateFound.ToString()))
-           postDto.ItemDateFound = post.ItemDateFound;
+            postDto.ItemDateFound = post.ItemDateFound;
 
         postDto.CreationDate = post.CreationDate;
         postDto.PostStatus = PostStatus.WAITING_APPROVAL.ToString();
         postDto.LastUpdateDate = DateOnly.FromDateTime(DateTime.Now);
-        
+
         post = _mapper.Map(postDto, post); // Edicão
         await _postRepository.EditAsync(post);
         return ResultService.Ok($"Post do id {post.Id} foi editado com sucesso!");
-
     }
 
     public async Task<ResultService> RemoveAsync(int id)
@@ -132,7 +131,8 @@ public class PostService : IPostService
                 post.SetPostStatus(PostStatus.WAITING_APPROVAL.ToString());
                 break;
             default:
-                return ResultService.Fail(" Status inválido ou nulo. Passe: 'aprovado', 'recusado', 'devolvido' ou 'aguardando' ");
+                return ResultService.Fail(
+                    " Status inválido ou nulo. Passe: 'aprovado', 'recusado', 'devolvido' ou 'aguardando' ");
         }
 
         await _postRepository.EditAsync(post);

@@ -1,5 +1,4 @@
 ﻿using com.achadoseperdidos.Api.DTO;
-using com.achadoseperdidos.Api.Entities;
 
 namespace com.achadoseperdidos.Api.Services.Interfaces;
 

@@ -16,15 +16,12 @@ public static class DependencyInjection
             options.UseMySql(
                 configuration.GetConnectionString("DefaultConnection"),
                 ServerVersion.Parse("8.0.30-mysql")
-                ));
+            ));
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddControllers()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
-            });
+            .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter()); });
         return services;
     }
 

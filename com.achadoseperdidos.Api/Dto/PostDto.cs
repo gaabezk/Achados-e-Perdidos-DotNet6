@@ -5,7 +5,7 @@ namespace com.achadoseperdidos.Api.DTO;
 public class PostDto
 {
     public int Id { get; set; }
-    public string UserEmail { get; set; }
+    public string? UserEmail { get; set; }
     [JsonIgnore] public int? UserId { get; set; }
     public string? ItemName { get; set; }
     public string? Description { get; set; }

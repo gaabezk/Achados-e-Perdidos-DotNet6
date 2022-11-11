@@ -98,10 +98,11 @@ public class PostService : IPostService
         if (string.IsNullOrEmpty(postDto.ItemDateFound.ToString()))
             postDto.ItemDateFound = post.ItemDateFound;
 
+        postDto.UserId = post.UserId;
         postDto.CreationDate = post.CreationDate;
         postDto.PostStatus = PostStatus.WAITING_APPROVAL.ToString();
         postDto.LastUpdateDate = DateOnly.FromDateTime(DateTime.Now);
-
+        
         post = _mapper.Map(postDto, post); // Edicão
         await _postRepository.EditAsync(post);
         return ResultService.Ok($"Post do id {post.Id} foi editado com sucesso!");

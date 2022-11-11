@@ -16,7 +16,7 @@ public class PostRepository : IPostRepository
 
     public async Task<Post> GetByIdAsync(int id)
     {
-        return await _db.Post.FirstOrDefaultAsync(x => x.Id == id);
+        return await _db.Post.Include(e => e.User).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<ICollection<Post>> GetAllAsync()

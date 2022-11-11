@@ -21,7 +21,7 @@ public class PostRepository : IPostRepository
 
     public async Task<ICollection<Post>> GetAllAsync()
     {
-        return await _db.Post.ToListAsync();
+        return await _db.Post.Include(x => x.User).ToListAsync();
     }
 
     public async Task<Post> CreateAsync(Post post)

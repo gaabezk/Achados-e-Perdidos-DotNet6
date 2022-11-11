@@ -47,6 +47,8 @@ public sealed class User
     public string Role { get; private set; }
 
     [StringLength(100)] [Column("codigo")] public string? CodeToResetPassword { get; private set; }
+    
+    public ICollection<Post> Posts { get; set; }
 
     private void Validation(string fullName, string email, string phone, string password)
     {
@@ -60,6 +62,7 @@ public sealed class User
         Phone = phone;
         Password = password;
         Role = Enum.Role.USER.ToString();
+        Posts = new List<Post>();
     }
 
     public void setRole(string role)

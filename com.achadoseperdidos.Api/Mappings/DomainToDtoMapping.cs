@@ -10,6 +10,12 @@ public class DomainToDtoMapping : Profile
     {
         CreateMap<User, UserDto>();
         CreateMap<Post, PostDto>();
-        CreateMap<Post, PostDtoReturn>();
+        CreateMap<Post, PostDtoReturn>()
+            .ForMember(x => x.User, opt => opt.Ignore())
+            .ConstructUsing((model, context) =>
+                {
+                    return new PostDtoReturn(model);
+                }
+            );
     }
 }

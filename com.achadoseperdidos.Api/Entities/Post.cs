@@ -9,20 +9,20 @@ public class Post
 {
     public Post(string itemName, string description, string? imageUrl1, string? imageUrl2, string? imageUrl3,
         string? color, string foundLocation, DateOnly? itemDateFound, string city, DateOnly creationDate,
-        DateOnly lastUpdateDate, string postStatus)
+        DateOnly lastUpdateDate, string postStatus, int userId)
     {
         Validation(itemName, description, imageUrl1, imageUrl2, imageUrl3, color, foundLocation, itemDateFound, city,
-            creationDate, lastUpdateDate, postStatus);
+            creationDate, lastUpdateDate, postStatus, userId);
     }
 
     public Post(int id, string itemName, string description, string? imageUrl1, string? imageUrl2, string? imageUrl3,
         string? color, string foundLocation, DateOnly? itemDateFound, string city, DateOnly creationDate,
-        DateOnly lastUpdateDate, string postStatus)
+        DateOnly lastUpdateDate, string postStatus, int userId)
     {
         DomainValidationException.When(id < 0, "Id nao pode ser menor que 0 (zero)!");
         Id = id;
         Validation(itemName, description, imageUrl1, imageUrl2, imageUrl3, color, foundLocation, itemDateFound, city,
-            creationDate, lastUpdateDate, postStatus);
+            creationDate, lastUpdateDate, postStatus, userId);
     }
 
     public Post()
@@ -78,19 +78,21 @@ public class Post
     [Column("status_postagem")]
     public string PostStatus { get; private set; }
 
-    //public User User { get; private set; }
-    //public int UserId { get; private set; }
+    public User User { get; set; }
+    public int UserId { get; set; }
 
     private void Validation(string itemName, string description, string? imageUrl1, string? imageUrl2,
         string? imageUrl3, string? color, string foundLocation, DateOnly? itemDateFound, string city,
-        DateOnly creationDate, DateOnly lastUpdateDate, string postStatus)
+        DateOnly creationDate, DateOnly lastUpdateDate, string postStatus, int userId)
     {
         DomainValidationException.When(string.IsNullOrEmpty(itemName), "Nome do item deve ser informado!");
         DomainValidationException.When(string.IsNullOrEmpty(description), "Descrição deve ser informada!");
         DomainValidationException.When(string.IsNullOrEmpty(foundLocation), "Lugar encontrado deve ser informado!");
         DomainValidationException.When(string.IsNullOrEmpty(city), "Cidade deve ser informada!");
         DomainValidationException.When(string.IsNullOrEmpty(postStatus), "Status do post deve ser informado!");
-
+        DomainValidationException.When(userId <= 0, "Id do usuario nao pode ser menor ou igual a 0 (zero)!");
+        
+        UserId = userId;
         ItemName = itemName;
         Description = description;
         ImageUrl1 = imageUrl1;

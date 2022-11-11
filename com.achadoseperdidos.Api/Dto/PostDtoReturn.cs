@@ -1,8 +1,12 @@
-﻿namespace com.achadoseperdidos.Api.DTO;
+﻿using com.achadoseperdidos.Api.Entities;
+
+namespace com.achadoseperdidos.Api.DTO;
 
 public class PostDtoReturn
 {
     public int? Id { get; set; }
+    public string User { get; set; }
+    public int? UserId { get; set; }
     public string? ItemName { get; set; }
     public string? Description { get; set; }
     public string? ImageUrl1 { get; set; }
@@ -15,4 +19,25 @@ public class PostDtoReturn
     public DateOnly? LastUpdateDate { get; set; }
     public string? PostStatus { get; set; }
     public DateOnly? ItemDateFound { get; set; }
+
+    public PostDtoReturn()
+    {
+    }    public PostDtoReturn(Post model)
+    {
+        User = model.User.FullName;
+        UserId = model.Id;
+        ItemName = model.ItemName;
+        Description = model.Description;
+        ImageUrl1 = model.ImageUrl1;
+        ImageUrl2 = model.ImageUrl2;
+        ImageUrl3 = model.ImageUrl3;
+        Color = model.Color;
+        FoundLocation = model.FoundLocation;
+        City = model.City;
+        CreationDate = model.CreationDate;
+        LastUpdateDate = model.LastUpdateDate;
+        PostStatus = model.PostStatus;
+        ItemDateFound = model.ItemDateFound;
+    }
+    
 }

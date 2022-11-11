@@ -7,6 +7,10 @@ public class PostDTOValidator : AbstractValidator<PostDto>
 {
     public PostDTOValidator()
     {
+        RuleFor(x => x.UserEmail)
+            .NotEmpty()
+            .WithMessage("Email do usuario deve ser informado!");
+        
         RuleFor(x => x.ItemName)
             .NotEmpty()
             .WithMessage("Nome do item deve ser informado!");

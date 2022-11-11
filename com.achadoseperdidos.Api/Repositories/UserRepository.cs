@@ -27,6 +27,12 @@ public class UserRepository : IUserRepository
         await _db.SaveChangesAsync();
     }
 
+    public async Task<int> GetIdByEmail(string email)
+    {
+        return (await _db.User.FirstOrDefaultAsync(x => x.Email == email))?.Id ??
+               0; // se tiver informacao retorno Id se nao retorna 0
+    }
+
     public async Task EditAsync(User user)
     {
         _db.Update(user);

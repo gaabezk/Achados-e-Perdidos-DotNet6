@@ -12,11 +12,13 @@ public class PostService : IPostService
 {
     private readonly IMapper _mapper;
     private readonly IPostRepository _postRepository;
+    private readonly IUserRepository _userRepository;
 
-    public PostService(IMapper mapper, IPostRepository postRepository)
+    public PostService(IMapper mapper, IPostRepository postRepository, IUserRepository userRepository)
     {
         _mapper = mapper;
         _postRepository = postRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<ResultService<PostDtoReturn>> CreateAsync(PostDto postDto)
@@ -31,6 +33,11 @@ public class PostService : IPostService
         if (postDto.ItemDateFound.ToString() == "01/01/0001")
             postDto.ItemDateFound = null;
 
+        var userId = await _userRepository.GetIdByEmail(postDto.UserEmail);
+        if(userId == 0)
+            return ResultService.Fail<PostDtoReturn>($"Usuario do email '{postDto.UserEmail}' nao foi encontrado!");
+        
+        postDto.UserId = userId;
         postDto.PostStatus = PostStatus.WAITING_APPROVAL.ToString();
         postDto.LastUpdateDate = DateOnly.FromDateTime(DateTime.Now);
         postDto.CreationDate = DateOnly.FromDateTime(DateTime.Now);
@@ -39,13 +46,13 @@ public class PostService : IPostService
         var data = await _postRepository.CreateAsync(post);
         return ResultService.Ok(_mapper.Map<PostDtoReturn>(data));
     }
-
+    
     public async Task<ResultService<ICollection<PostDtoReturn>>> GetAllAsync()
     {
         var data = await _postRepository.GetAllAsync();
         return ResultService.Ok(_mapper.Map<ICollection<PostDtoReturn>>(data));
     }
-
+    
     public async Task<ResultService<PostDtoReturn>> GetById(int id)
     {
         var post = await _postRepository.GetByIdAsync(id);

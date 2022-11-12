@@ -8,11 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\me.gabezk.IoC\me.gabezk.IoC.csproj"/>
+        <ProjectReference Include="..\me.gabezk.Identity\me.gabezk.Identity.csproj" />
+        <ProjectReference Include="..\me.gabezk.IoC\me.gabezk.IoC.csproj" />
     </ItemGroup>
 
 </Project>

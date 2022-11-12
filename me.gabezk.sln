@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "me.gabezk.IoC", "me.gabezk.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "me.gabezk.Api", "me.gabezk.Api\me.gabezk.Api.csproj", "{8B334181-A90B-43AE-994C-F2735932FAFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "me.gabezk.Identity", "me.gabezk.Identity\me.gabezk.Identity.csproj", "{1D6AB1C2-1E0D-4FE7-8B27-EC2446F27010}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{8B334181-A90B-43AE-994C-F2735932FAFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B334181-A90B-43AE-994C-F2735932FAFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B334181-A90B-43AE-994C-F2735932FAFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D6AB1C2-1E0D-4FE7-8B27-EC2446F27010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6AB1C2-1E0D-4FE7-8B27-EC2446F27010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D6AB1C2-1E0D-4FE7-8B27-EC2446F27010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D6AB1C2-1E0D-4FE7-8B27-EC2446F27010}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -4,6 +4,7 @@ using me.gabezk.Application.Services.Interfaces;
 using me.gabezk.Data.Context;
 using me.gabezk.Data.Repositories;
 using me.gabezk.Domain.Interfaces;
+using me.gabezk.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,13 @@ public static class DependencyInjection
                 configuration.GetConnectionString("DefaultConnection"),
                 ServerVersion.Parse("8.0.30-mysql")
             ));
-
+    
+        services.AddDbContext<IdentityDataContext>(options=>
+            options.UseMySql(
+                configuration.GetConnectionString("DefaultConnection"),
+                ServerVersion.Parse("8.0.30-mysql")
+            ));
+        
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
 

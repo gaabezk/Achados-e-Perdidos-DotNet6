@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\me.gabezk.Application\me.gabezk.Application.csproj"/>
+        <ProjectReference Include="..\me.gabezk.Data\me.gabezk.Data.csproj"/>
+        <ProjectReference Include="..\me.gabezk.Domain\me.gabezk.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0"/>
+    </ItemGroup>
+
+</Project>

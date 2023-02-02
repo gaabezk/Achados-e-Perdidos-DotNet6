@@ -31,6 +31,11 @@ builder.Services.AddSwaggerGen(c =>
             Url = new Uri("https://github.com/gaabezk")
         }
     });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+    
 });
 
 builder.Services.AddControllers()

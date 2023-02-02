@@ -15,6 +15,9 @@ public class PostController : ControllerBase
         _postService = postService;
     }
     
+    /// <summary>
+    /// CADASTRA UM POST NO SISTEMA PASSANDO O ID DO USUÁRIO.
+    /// </summary>
     [HttpPost]
     public async Task<ActionResult> PostAsync([FromBody] PostRequestDto postDto)
     {
@@ -24,10 +27,13 @@ public class PostController : ControllerBase
 
         return BadRequest(result);
     }
-
+    
+    /// <summary>
+    /// BUSCA UM POST PELO ID.
+    /// </summary>
     [HttpGet]
     [Route("{id:guid}")]
-    public async Task<ActionResult> GetAllById(Guid id)
+    public async Task<ActionResult> GetById(Guid id)
     {
         var result = await _postService.GetById(id);
         if (result.IsSuccess)
@@ -36,6 +42,9 @@ public class PostController : ControllerBase
         return BadRequest(result);
     }
     
+    /// <summary>
+    /// BUSCA POSTS PELO STATUS.
+    /// </summary>
     [HttpGet]
     [Route("status")]
     public async Task<ActionResult> GetAllByStatus(string status)
@@ -47,6 +56,9 @@ public class PostController : ControllerBase
         return BadRequest(result);
     }
     
+    /// <summary>
+    /// BUSCA POSTS PELO ID DO USUÁRIO.
+    /// </summary>
     [HttpGet]
     [Route("user")]
     public async Task<ActionResult> GetAllByUserId(Guid id)
@@ -58,6 +70,9 @@ public class PostController : ControllerBase
         return BadRequest(result);
     }
 
+    /// <summary>
+    /// LISTA TODOS OS POSTS.
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult> GetAllAsync()
     {
@@ -68,6 +83,9 @@ public class PostController : ControllerBase
         return BadRequest(result);
     }
 
+    /// <summary>
+    /// EDITA OS DADOS DE UM POST PELO ID.
+    /// </summary>
     [HttpPut]
     [Route("{id:guid}")]
     public async Task<ActionResult> UpdateAsync([FromBody] PostEditRequestDto postDto, Guid id)
@@ -79,6 +97,9 @@ public class PostController : ControllerBase
         return BadRequest(result);
     }
 
+    /// <summary>
+    /// EDITA OS STATUS DE UM POST PELO ID.
+    /// </summary>
     [HttpPut]
     [Route("status")]
     public async Task<ActionResult> UpdateRoleAsync([FromQuery] Guid id, string status)
@@ -90,6 +111,9 @@ public class PostController : ControllerBase
         return BadRequest(result);
     }
 
+    /// <summary>
+    /// REMOVE UM POST DO BANCO DE DADOS PELO ID.
+    /// </summary>
     [HttpDelete]
     [Route("{id:guid}")]
     public async Task<ActionResult> RemoveAsync(Guid id)

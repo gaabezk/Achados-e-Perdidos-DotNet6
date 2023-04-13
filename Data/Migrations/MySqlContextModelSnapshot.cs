@@ -97,6 +97,25 @@ namespace Data.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("Domain.Models.Entities.RefreshTokenModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RefreshToken");
+                });
+
             modelBuilder.Entity("Domain.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -120,7 +139,7 @@ namespace Data.Migrations
                         .HasColumnType("varchar(60)")
                         .HasColumnName("primeiro_nome");
 
-                    b.Property<string>("HasPassword")
+                    b.Property<string>("HashPassword")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("varchar(200)")

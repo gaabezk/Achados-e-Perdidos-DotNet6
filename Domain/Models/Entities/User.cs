@@ -28,12 +28,12 @@ public sealed class User : BaseEntity
     [StringLength(200)]
     [Required(ErrorMessage = "Senha criptografada é obrigatório", AllowEmptyStrings = false)]
     [Column("senha_criptografada")]
-    public string HasPassword { get; private set; }
+    public string HashPassword { get; private set; }
 
     [StringLength(50)]
     [Required(ErrorMessage = "Role é obrigatório", AllowEmptyStrings = false)]
     [Column("role")]
-    public string? Role { get; private set; } = "adminnn";
+    public string? Role { get; private set; } = "user";
 
     [StringLength(20)] [Column("codigo")] public string? CodeToResetPassword { get; private set; }
 
@@ -41,7 +41,7 @@ public sealed class User : BaseEntity
 
     public void SetHasPassword(string password)
     {
-        HasPassword = password;
+        HashPassword = password;
     }
     public void SetCodeToResetPassword(string code)
     {

@@ -55,11 +55,14 @@ public class PostService : IPostService
             : ResultService.Ok(_mapper.Map<PostResponseDto>(post));
     }
 
-    public async Task<ResultService> UpdateAsync(PostEditRequestDto dto, Guid id)
+    public async Task<ResultService> UpdateAsync(PostEditRequestDto dto, Guid idPost, Guid idUser)
     {
-        var post = await _postRepository.GetByIdAsync(id);
+        var post = await _postRepository.GetByIdAsync(idPost);
         if (post == null)
-            return ResultService.Fail($"Post do id {id} não foi encontrado!");
+            return ResultService.Fail($"Post do id {idPost} não foi encontrado!");
+        
+        if(idUser != post.UserId)
+            return ResultService.Fail("ID informado nao é igual ao do usuario da postagem!");
         
         dto.LastUpdateDate = DateOnly.FromDateTime(DateTime.Now);
 
@@ -69,7 +72,7 @@ public class PostService : IPostService
         
         post = _mapper.Map(dto, post); // Edicão
         await _postRepository.EditAsync(post);
-        return ResultService.Ok($"Post do id {id} foi editado com sucesso!");
+        return ResultService.Ok($"Post do id {idPost} foi editado com sucesso!");
 
     }
 

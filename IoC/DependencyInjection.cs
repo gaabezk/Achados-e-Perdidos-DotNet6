@@ -17,7 +17,7 @@ public static class DependencyInjection
         services.AddDbContext<MySqlContext>(options =>
             options.UseMySql(
                 configuration.GetConnectionString("DefaultConnection") ?? string.Empty,
-                ServerVersion.Parse("8.0.30-mysql")
+                ServerVersion.Parse("8.0.32-mysql")
             ));
         
         return services;
@@ -25,9 +25,11 @@ public static class DependencyInjection
     
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddAutoMapper(typeof(Mappings));
+        services.AddScoped<TokenService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IPostService, PostService>();
         

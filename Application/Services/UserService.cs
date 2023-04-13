@@ -56,12 +56,19 @@ public class UserService : IUserService
         if (user == null)
             return ResultService.Fail($"Usuário do id {id} não foi encontrado!");
         
-        dto.Password = user.HasPassword;
+        dto.Password = user.HashPassword;
         
         var result = await new UserDtoValidator().ValidateAsync(_mapper.Map<UserRequestDto>(dto));
         if (!result.IsValid)
             return ResultService.RequestError<UserRequestDto>("Problemas de validade", result);
 
+        // if (await CheckUserExistsByEmail(dto.Email))
+        //     if (!string.Equals(dto.Email, user.Email))
+        //         return ResultService.Fail<UserRequestDto>("Já existe um usuário com este e-mail");
+        
+        // verifica se o email que desejo trocar é igual ao email antigo.
+        // caso o email desejado seja diferente do antigo
+        // é feita uma verificacao
         if (!string.Equals(dto.Email, user.Email))
         {
             if(await CheckUserExistsByEmail(dto.Email))
@@ -83,7 +90,7 @@ public class UserService : IUserService
         if (user == null)
             return ResultService.Fail($"Usuário do email {dto.Email} não foi encontrado!");
 
-        var validPass = PasswordService.VerifyHashPassword(dto.OldPassword, user.HasPassword);
+        var validPass = PasswordService.VerifyHashPassword(dto.OldPassword, user.HashPassword);
 
         if (!validPass)
             return ResultService.Fail("Senha antiga incorreta");
@@ -102,6 +109,24 @@ public class UserService : IUserService
         await _userRepository.DeleteAsync(user);
         return ResultService.Ok($"Usuário do id {id} foi deletado com sucesso!");
     }
+    
+    public async Task<ResultService<User>> Authenticate(LoginRequestDto loginRequestDto)
+    {
+        var result = await new LoginRequestDtoValidator().ValidateAsync(loginRequestDto);
+        if (!result.IsValid)
+            return ResultService.RequestError<User>("Problemas de validade", result);
+        
+        var user = await _userRepository.GetByEmailAsync(loginRequestDto.Email);
+        if (user == null)
+            return ResultService.Fail<User>("E-mail incorreto");
+
+        // if (user.Active != true)
+        //     return ResultService.Fail<User>("Usuário desativado!");
+
+        var validPass = BCrypt.Net.BCrypt.Verify(loginRequestDto.Password, user.HashPassword);
+
+        return !validPass ? ResultService.Fail<User>("Senha incorreta") : ResultService.Ok(user);
+    }
 
     public async Task<ResultService> EditRoleAsync(Guid id, string role)
     {
@@ -112,10 +137,10 @@ public class UserService : IUserService
         switch (role.ToLower())
         {
             case "user":
-                user.SetRole(Role.User.ToString());
+                user.SetRole(Role.User.ToString().ToLower());
                 break;
             case "admin":
-                user.SetRole(Role.Admin.ToString());
+                user.SetRole(Role.Admin.ToString().ToLower());
                 break;
             default:
                 return ResultService.Fail(" Role inválida ou nula! Passe ADMIN ou USER ");

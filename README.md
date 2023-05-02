@@ -4,7 +4,7 @@ API para gerenciamento de usuários e posts do sistema Achados e Perdidos.
 
 ## Tecnologias Utilizadas
 
-- .NET Core 7.0
+- .NET 7.0
 - Entity Framework Core v7
 - AutoMapper 12.0.0
 - FluentValidation 11.4.0

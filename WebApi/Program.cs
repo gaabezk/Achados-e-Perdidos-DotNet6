@@ -31,7 +31,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Version = "v1",
         Title = "Achados&Perdidos - Api",
-        Description = "ASP.NET Core Web Api",
+        Description = ".NET 7 Web Api",
         Contact = new OpenApiContact
         {
             Name = "Gabriel Fernandes",
@@ -46,7 +46,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
         BearerFormat = "JWT",
-        Description = " Insira o Token JWT em formato bearer ex: Bearer 'token' "
+        Description = "Insira o Token JWT"
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {

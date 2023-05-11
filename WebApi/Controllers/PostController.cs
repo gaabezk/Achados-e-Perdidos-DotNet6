@@ -20,7 +20,7 @@ public class PostController : ControllerBase
     /// CADASTRA UM POST NO SISTEMA PASSANDO O ID DO USUÁRIO.
     /// </summary>
     [HttpPost]
-    [Authorize(Policy = "User")]
+    [Authorize]
     public async Task<ActionResult> PostAsync([FromBody] PostRequestDto postDto)
     {
         var result = await _postService.CreateAsync(postDto);
@@ -35,7 +35,7 @@ public class PostController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("{id:guid}")]
-    [Authorize(Policy = "User")]
+    [Authorize]
     public async Task<ActionResult> GetById(Guid id)
     {
         var result = await _postService.GetById(id);
@@ -50,7 +50,7 @@ public class PostController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("status")]
-    [Authorize(Policy = "User")]
+    [Authorize]
     public async Task<ActionResult> GetAllByStatus(string status)
     {
         var result = await _postService.GetAllByStatus(status);
@@ -65,7 +65,7 @@ public class PostController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("user")]
-    [Authorize(Policy = "User")]
+    [Authorize]
     public async Task<ActionResult> GetAllByUserId(Guid id)
     {
         var result = await _postService.GetAllByUserId(id);
@@ -94,7 +94,7 @@ public class PostController : ControllerBase
     /// </summary>
     [HttpPut]
     [Route("update")]
-    [Authorize(Policy = "User")]
+    [Authorize]
     public async Task<ActionResult> UpdateAsync([FromBody] PostEditRequestDto postDto,[FromQuery] Guid idPost,[FromQuery] Guid idUser)
     {
         var result = await _postService.UpdateAsync(postDto, idPost,idUser);

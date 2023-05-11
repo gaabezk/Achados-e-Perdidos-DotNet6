@@ -25,13 +25,13 @@ public static class DependencyInjection
     
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IPostRepository, PostRepository>();
+        services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddTransient<IUserRepository, UserRepository>();
+        services.AddTransient<IPostRepository, PostRepository>();
         services.AddAutoMapper(typeof(Mappings));
-        services.AddScoped<TokenService>();
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IPostService, PostService>();
+        services.AddTransient<TokenService>();
+        services.AddTransient<IUserService, UserService>();
+        services.AddTransient<IPostService, PostService>();
         
         return services;
     }

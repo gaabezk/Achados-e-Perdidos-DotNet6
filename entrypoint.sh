@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+dotnet tool install --global dotnet-ef --version 7.0.5
 # Executa as migrações usando o dotnet ef
 dotnet ef database update --project Data/Data.csproj --startup-project WebApi/WebApi.csproj --context Data.Context.MySqlContext --configuration Debug 20230518171848_databasev1
 

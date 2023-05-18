@@ -17,16 +17,16 @@ WORKDIR "/src/WebApi"
 RUN dotnet build "WebApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WebApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "WebApi/WebApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
 # Adicione os comandos para as migrações
-RUN dotnet tool install --global dotnet-ef --version 7.0.0
-COPY run-database-update.sh /app/run-database-update.sh
-RUN chmod +x /app/run-database-update.sh
+RUN dotnet tool install --global dotnet-ef --version 7.0.5
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 # Defina o script de entrada como o comando de execução
-ENTRYPOINT ["/app/run-database-update.sh", "dotnet", "WebApi.dll"]
+ENTRYPOINT ["/app/entrypoint.sh"]

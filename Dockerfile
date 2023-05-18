@@ -24,6 +24,7 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 # Adicione os comandos para as migrações
+RUN dotnet tool install --global dotnet-ef --version 7.0.5
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
